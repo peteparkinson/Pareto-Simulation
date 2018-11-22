@@ -8,7 +8,8 @@ public class Main {
 		//number of players
 		int num = 100;
 		int dollars = 100;
-		int iterations = 1000000;
+		int iterations = 100000000;
+		int roundsPlayed = 0;
 		int player1;
 		int player2;
 		
@@ -20,10 +21,13 @@ public class Main {
 		for(int i = 0; i < num; i++){
 			available.add(i);
 		}
-				
+		
 		for(int i = 0; i < iterations; i++){
 			player1 = available.get((int) (Math.random() * available.size()));
 			player2 = available.get((int) (Math.random() * available.size()));
+			if(player1 == 0 || player2 == 0) {
+				continue;
+			}
 			if(flipCoin()){
 				players[player1]++;
 				players[player2]--;
@@ -31,19 +35,17 @@ public class Main {
 				players[player1]--;
 				players[player2]++;
 			}
-			available.add(player1);
-			if(players[player1] == 0){
-				available.remove(available.indexOf(player1));
+			for(int j = 0; j < available.size(); j++) {
+				if(players[j] < 1) {
+					available.remove(j);
+				}
 			}
-			if(players[player2] == 0){
-				available.remove(available.indexOf(player2));
-			}
+			roundsPlayed++;
 		}
-		/*
 		for(int x : players){
 			System.out.println(x);
 		}
-		*/
+		System.out.println("\n" + roundsPlayed);
 	}
 	
 	public static boolean flipCoin() {
