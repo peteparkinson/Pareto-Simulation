@@ -1,0 +1,72 @@
+const canvas = document.getElementById('canvas');
+const context = canvas.getContext('2d');
+
+context.fillStyle = '#000';
+context.fillRect(0, 0, canvas.width, canvas.height);
+
+const dollars = 100;
+const players = 100;
+
+var player = [];
+
+/*
+function getCounts(){
+    for(let i = 0; i < players; i++){
+        counts[player1[i]] += 1;
+        counts[player2[i]] += 1;
+    }
+    console.log(player1);
+    counts = counts.filter(function(number) {
+        return number !== 0;
+      }).sort();
+    for(let i = 0; i < counts.length; i++){
+        console.log(counts);
+    }
+}
+*/
+
+function coinFilp() {
+    return Math.random() > .5;
+}
+function run(rounds){
+    startGame(rounds);
+    let tmp = player;
+    console.log(tmp.sort());
+}
+
+function startGame(rounds){
+
+    for(let i = 0; i < rounds; i++){
+        var rand = Math.random() * players | 0;
+        while(rand === i){
+            rand = Math.random() * players | 0;
+        }
+        for(let i = 0; i < players; i++){
+            
+            if(coinFilp()){
+                player[i]++;
+                player[rand]--;
+                if(player[rand] === 0){
+                    player.splice(i, 1);
+                }
+            } else {
+                player[i]--;
+                player[rand]++;
+                if(player[i] === 0){
+                    player.splice(i, 1);
+                }
+            } 
+            
+        }
+
+    }
+
+}
+
+
+//give players money
+for(let i = 0; i < players; i++){
+    player.push(dollars);
+}
+
+run(1000);
