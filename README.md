@@ -10,4 +10,4 @@ the money will not distribute normally despite the coinfilp being ~50/50.<br>
 the money will instead fall into a pareto distribution.<br><br>
 players are stored in an array and are removed from the array upon reaching 0.<br>
 the array is iterated, assuring each player flips at least once per round.<br>
-a second opponent is chosen randomly.<br>
+the opponent for each iteration is chosen randomly.<br>
