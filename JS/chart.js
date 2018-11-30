@@ -1,24 +1,20 @@
 var ctx = document.getElementById("myChart");
+
+var color1 = [];
+
+for(let i = 0; i <= tiers; i++){     
+    color1.push('rgba(54, 162, 235, 0.2)');
+}
+
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: player,
+        labels: ranges,
         datasets: [{
-            label: 'dollars',
-            data: player,
-            /*
-            backgroundColor: [
-                'rgba(54, 162, 235, 0.2)',
-            ],
-            borderColor: [
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-            ],
-            */
+            label: 'Players',
+            data: counts,
+            backgroundColor: color1,
+            borderColor: color1,
             borderWidth: 5
         }]
     },
