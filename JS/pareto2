@@ -1,12 +1,7 @@
-const canvas = document.getElementById('canvas');
-const context = canvas.getContext('2d');
 
-context.fillStyle = '#000';
-context.fillRect(0, 0, canvas.width, canvas.height);
-
-const rounds = 50,
+const rounds = 1000,
     dollars = 100,
-    players = 50;
+    players = 20;
 
 var player = [];
 
@@ -35,25 +30,20 @@ function filter_array(arr) {
 function run(){
     startGame(rounds);
     console.log(player.sort((a, b) => a - b));
-    startGame(rounds * 10);
-    console.log(player.sort((a, b) => a - b));
-    startGame(rounds * 100);
-    console.log(player.sort((a, b) => a - b));
-    startGame(rounds * 1000);
-    console.log(player.sort((a, b) => a - b));
 }
 
 function startGame(rounds){
 
-    for(let i = 0; i < rounds; i++){
+    for(let x = 0; x < rounds; x++){
         
-        player = filter_array(player);
+        //player = filter_array(player);
+        var rand;
 
-        var rand = Math.random() * players | 0;
-        while(rand === i){
+        for(let i = 0; i < players; i++){       
             rand = Math.random() * players | 0;
-        }
-        for(let i = 0; i < players; i++){
+            while(rand === i){
+                rand = Math.random() * players | 0;
+            }
             if(!player[i] || !player[rand]){
                 continue;
             }
@@ -71,7 +61,6 @@ function startGame(rounds){
     }
 
 }
-
 
 //give players money
 for(let i = 0; i < players; i++){
