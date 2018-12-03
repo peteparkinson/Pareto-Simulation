@@ -1,72 +1,101 @@
-const rounds = 100000,
-    dollars = 1000,
-    players = 24;
+var ctx = document.getElementById("myChart");
+var myChart;
+var dollars = 80,
+    players = 6000;
 
 var player = [],
     counts = [],
     ranges = [],
-    //ranges = [],
-    tiers = 86;
+    tiers = 10;
+    var color1 = [];
 
 function coinFilp() {
     return Math.random() > .5;
 }
 
-//remove null values from array
-function filter_array(arr) {
-    var index = -1,
-        arr_length = arr ? arr.length : 0,
-        resIndex = -1,
-        result = [];
-
-    while (++index < arr_length) {
-        var value = arr[index];
-
-        if (value) {
-            result[++resIndex] = value;
-        } 
-    }
-
-    return result;
-}
-
-function getCounts(){
-
-     
-    for(let i = 0; i <= tiers; i++){
-        //need to figure out how to do variable ranges
-        ranges.push(players * dollars / tiers * i / 2| 0);
+function generateCounts(){
+    ranges.push(0);
+    for(let i = 2; i <= tiers; i++){
+        ranges.push((player[players - 1] -1) * (i / tiers) | 0);
         counts.push(0);
     }
 
     for(let i = 0; i < players; i++){
         if(player[i] === 0){
-            console.log(player[i]);
             counts[0]++;
         } else {
             for(let j = 0; j < ranges.length - 1; j++){
                 if(player[i] > ranges[j] && player[i] < ranges[j + 1]){
-                counts[j]++;
+                counts[j + 1]++;
                 }
             }
         }
     }
-    console.log(ranges);
-    console.log(counts);
+}
+
+function init(){
+    player = [];
+    counts = [];
+    ranges = [];
+    initChart();
+
+    //give players money
+    for(let i = 0; i < players; i++){
+        player.push(dollars);
+    }
+
+    //populate color array for graph
+    for(let i = 0; i <= tiers; i++){     
+        color1.push('rgba(54, 162, 235, 0.2)');
+    }
 
 }
 
-function run(){
+function initChart(){
+    myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ranges,
+            datasets: [{
+                data: counts,
+                label: 'Players',
+                backgroundColor: color1,
+                borderColor: color1,
+                borderWidth: 5
+            }]
+        },
+        options: {
+            responsive: false,
+            
+            scales: {
+                yAxes: [{
+                    labelString: "test",
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+}
+
+function run(rounds){
+    init();
     startGame(rounds);
-    getCounts();
     console.log(player.sort((a, b) => a - b));
+    generateCounts();
+    for(let i = 0; i < counts.length; i++){
+
+        myChart.data.datasets[0].data[i] = counts[i];
+        myChart.update();  
+    }
+    //initChart();
 }
 
 function startGame(rounds){
 
     for(let x = 0; x < rounds; x++){
         
-        //player = filter_array(player);
         var rand;
 
         for(let i = 0; i < players; i++){       
@@ -92,12 +121,24 @@ function startGame(rounds){
 
 }
 
-function pay(){
-    //give players money
-    for(let i = 0; i < players; i++){
-        player.push(dollars);
-    }          
-}
+init();
 
-pay();
-run();
+
+/*
+//remove null values from array if needed
+function filter_array(arr) {
+    var index = -1,
+        arr_length = arr ? arr.length : 0,
+        resIndex = -1,
+        result = [];
+
+    while (++index < arr_length) {
+        var value = arr[index];
+
+        if (value) {
+            result[++resIndex] = value;
+        } 
+    }
+    return result;
+}
+*/
