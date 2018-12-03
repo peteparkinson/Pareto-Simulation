@@ -4,25 +4,127 @@
     <head>
         <title>Pareto Distribution Simulation</title>
         <meta charset="utf-8">
-        <style>
-            canvas {
-                border: 3px #CCC solid;
-            }
-        </style>
     </head>
+    <style>
+        .button {
+            background-color: #36729B;
+            border: none;
+            color: white;
+            padding: 5px 15px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 120px;
+            
+        }
+        canvas {
+                border: 3px #CCC solid;
+                padding: 10px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            grid-template-rows: auto auto auto;
+            grid-gap: 5px;
+            background-color: #888888;
+            padding: 5px;
+            height: 400px;
+            width: 600px;
+            align-content: space-evenly;
+        }
+        .grid-container > div {
+            background-color: rgba(255, 255, 255, 0.8);
+            text-align: left;
+            padding: 5px 0;
+            font-size: 30px;
+            height: 190px;
+        }
+        p {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            text-decoration: none;
+            text-align: left;
+        }
+    </style>
     <body>
         
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+        <canvas id="myChart" width="1200" height="400"></canvas>
+        
+        <!-- <script src="./pareto2.js"></script> -->
+        <!-- <script src="./tmp.js"></script> -->
+        <script src="pareto2.js"></script>
 
-    <canvas id="myChart" width="1200" height="400"></canvas>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-    
-    <!-- <script src="./pareto2.js"></script> -->
-    <!-- <script src="./tmp.js"></script> -->
-    <!-- <script src="chart.js"></script> -->
-    <script src="pareto2.js"></script>
-    <script src="chart.js"></script>
+        <div>
 
-    </script>
+        </div>
+
+
+        
+        <div class="grid-container">
+            <!-- cell 1 -->
+            <div>
+                <div>
+                    <p class="sansserif">
+                        Players: 6000<br>
+                        Dollars: 80<br>
+                
+                    </p>        
+                </div>
+                <div>
+                    <input type="button" 
+                        class="button" 
+                        value="10 Rounds" 
+                        onclick="run(10)">  
+                </div>
+                <div>
+                    <input type="button" 
+                        class="button" 
+                        value="100 Rounds" 
+                        onclick="run(100)">  
+                </div>
+                <div>
+                    <input type="button" 
+                        class="button" 
+                        value="1000 Rounds" 
+                        onclick="run(1000)">  
+                </div>
+                
+
+
+            </div>    
+                
+
+            <!-- cell 2 -->
+            <div>
+
+
+
+            </div>  
+            
+            <!-- cell 3 -->
+            <div>
+
+
+            </div>  
+            
+            <!-- cell 4 -->  
+            <div>
+
+            </div>
+            
+            <!-- cell 5 -->
+            <div>
+
+            </div>
+            
+            <!-- cell 6 -->
+            <div>
+
+            </div>  
+        </div>
 
     </body>
 </html>
