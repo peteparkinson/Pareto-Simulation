@@ -1,5 +1,8 @@
 # Pareto-Simulation
 
+![image](https://user-images.githubusercontent.com/43157092/49664041-99d0fe00-fa48-11e8-8fec-aa025715bc7a.png)
+
+
 this simulation demonstrates a pareto distribution emerging from a game devised using coinflips.<br>
 of a group of players, each is given the same chosen dollar amount.<br>
 the group is divided into random pairs.<br>
