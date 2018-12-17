@@ -1,26 +1,25 @@
-var ctx = document.getElementById("myChart");
-var myChart;
-var dollars = 80,
-    players = 6000;
-
-var player = [],
+var ctx = document.getElementById("myChart"),
+    myChart,
+    tiers  = 10,
+    player = [],
     counts = [],
     ranges = [],
-    tiers = 10;
-    var color1 = [];
+    color1 = [];
 
 function coinFilp() {
     return Math.random() > .5;
 }
 
 function generateCounts(){
+    //define values for bar ranges
     ranges.push(0);
     for(let i = 2; i <= tiers; i++){
-        ranges.push((player[players - 1] -1) * (i / tiers) | 0);
+        ranges.push((player[player.length - 1] -1) * (i / tiers) | 0);
+        //ranges.push(1000 * (i / tiers) | 0);
         counts.push(0);
     }
 
-    for(let i = 0; i < players; i++){
+    for(let i = 0; i < player.length; i++){
         if(player[i] === 0){
             counts[0]++;
         } else {
@@ -33,15 +32,15 @@ function generateCounts(){
     }
 }
 
-function init(){
+function init(dlrs, plyrs){
     player = [];
     counts = [];
     ranges = [];
     initChart();
 
-    //give players money
-    for(let i = 0; i < players; i++){
-        player.push(dollars);
+    //give each player money
+    for(let i = 0; i < plyrs; i++){
+        player.push(dlrs);
     }
 
     //populate color array for graph
@@ -66,10 +65,23 @@ function initChart(){
         },
         options: {
             responsive: false,
+            labelString: "test",
             
             scales: {
                 yAxes: [{
-                    labelString: "test",
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Number of People'
+                    },
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Dollars held'
+                    },
                     ticks: {
                         beginAtZero:true
                     }
@@ -79,29 +91,37 @@ function initChart(){
     });
 }
 
-function run(rounds){
-    init();
-    startGame(rounds);
+function run(dlrs, plyrs, rnds){
+    console.log(dlrs + " " + plyrs + " " + rnds);
+    init(dlrs, plyrs);
+    startGame(plyrs, rnds);
     console.log(player.sort((a, b) => a - b));
     generateCounts();
     for(let i = 0; i < counts.length; i++){
-
         myChart.data.datasets[0].data[i] = counts[i];
         myChart.update();  
     }
-    //initChart();
 }
 
-function startGame(rounds){
+function sim(){
+    var players = document.getElementById("players").value,
+        dollars = document.getElementById("dollars").value,
+        rounds  = document.getElementById("rounds").value;
+    
+    run(dollars, players, rounds);
+    
+}
 
-    for(let x = 0; x < rounds; x++){
-        
+function startGame(plyrs, rnds){
+
+    for(let x = 0; x < rnds; x++){
+        console.log("test");
         var rand;
 
-        for(let i = 0; i < players; i++){       
-            rand = Math.random() * players | 0;
+        for(let i = 0; i < plyrs; i++){       
+            rand = Math.random() * plyrs | 0;
             while(rand === i){
-                rand = Math.random() * players | 0;
+                rand = Math.random() * plyrs | 0;
             }
             if(!player[i] || !player[rand]){
                 continue;
